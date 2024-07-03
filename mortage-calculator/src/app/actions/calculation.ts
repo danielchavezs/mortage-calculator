@@ -8,8 +8,9 @@ export async function calculateMortage (amount: number, term: number, rate: numb
     const emInterest = (Math.pow(1 + (rate / months), months)) - 1;
     const anInterest = emInterest * 12;
 
-    const moNominal = (amount * nmInterest * Math.pow(1 + nmInterest, months)) / ((Math.pow(1 + nmInterest, months)) - 1);
-    const moInterestOnly = nmInterest * amount;
+    const moNominal = Number(((amount * nmInterest * Math.pow(1 + nmInterest, months)) / ((Math.pow(1 + nmInterest, months)) - 1)).toFixed(2));
+    // const moNominal = Number(moNominalST)
+    const moInterestOnly = Number((nmInterest * amount).toFixed(2));
     
     let totalPayment = 0;
     let toDisplay = 0;
@@ -17,7 +18,7 @@ export async function calculateMortage (amount: number, term: number, rate: numb
     if (mortageType === "repayment"){
         toDisplay = moNominal;
         totalPayment = moNominal * months;
-    } else if (mortageType === "OI"){
+    } else if (mortageType === "interest-only"){
         toDisplay = moInterestOnly;
         totalPayment = (moInterestOnly * months) + amount;
     } else { throw new Error ("Please select a valid mortage type.")};
