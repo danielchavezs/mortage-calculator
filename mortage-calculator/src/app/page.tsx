@@ -36,24 +36,19 @@ export default function Home() {
     totalPayment: 0,
   });
 
+  const [error, setError] = useState({
+    amount: "",
+    term: "",
+    rate: "",
+    mortageType: "",
+  });
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const property = event.target.name
     const value = event.target.value
     setParameters({ ...parameters, [property]: value })
   };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-   
-      const amount = parameters.amount;
-      const term = parameters.term;
-      const rate = parameters.rate;
-      const mortageType = parameters.mortageType;
-    
-    const res = await calculateMortage(amount, term, rate, mortageType);
-    setResults(res)
-  };
-
+  
   const resetAll = () =>{
     setResults({
       months: 0,
@@ -70,8 +65,40 @@ export default function Home() {
       mortageType: "",
     });
   };
-  console.log(parameters);
-  console.log(results)
+  
+  const validateForm = () => {
+    // const requiredFields = Object.keys(parameters) as (keyof Parameters)[];
+    const requiredFields: (keyof Parameters)[] = ["amount", "term", "rate", "mortageType"];
+    for (const key of requiredFields) {
+      if (parameters[key] === "" || parameters[key] === 0) {
+        setError((prevError) => ({ ...prevError, [key]: `You must enter a ${key}.` }));
+        return false;
+      }
+    }
+    return true;
+  };
+  
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!validateForm()) {
+      alert("Please complete all fields before submiting.");
+      return;
+    }
+    try {
+      const amount = parameters.amount;
+      const term = parameters.term;
+      const rate = parameters.rate;
+      const mortageType = parameters.mortageType;
+  
+      const res = await calculateMortage(amount, term, rate, mortageType);
+      setResults(res);
+      
+    } catch (err) {
+      window.alert(error)
+    }
+  };
+  
+  
   return (
     <main className="bg-white flex min-h-screen flex-col items-center justify-between p-24">
       <div className="bg-cyan-200 w-96 rounded-2xl flex items-center shrink-0 p-6">
@@ -100,6 +127,7 @@ export default function Home() {
                     id="amount"
                     type="number"
                     name="amount"
+                    value={parameters.amount}
                     placeholder="Enter the mortage amount."
                     onChange={handleChange}
                     required
@@ -115,6 +143,7 @@ export default function Home() {
                     id="term"
                     type="number"
                     name="term"
+                    value={parameters.term}
                     placeholder="Years."
                     onChange={handleChange}
                     required
@@ -130,6 +159,7 @@ export default function Home() {
                     id="rate"
                     type="number"
                     name="rate"
+                    value={parameters.rate}
                     placeholder="Interest rate (%)."
                     onChange={handleChange}
                     required
@@ -148,6 +178,7 @@ export default function Home() {
                         className="form-radio"
                         name="mortageType"
                         value="repayment"
+                        checked={parameters.mortageType === "repayment"}
                         onChange={handleChange}
                       />
                       <span className="ml-2">Repayment</span>
@@ -158,6 +189,7 @@ export default function Home() {
                         className="form-radio"
                         name="mortageType"
                         value="interest-only"
+                        checked={parameters.mortageType === "interest-only"}
                         onChange={handleChange}
                       />
                       <span className="ml-2">Interest Only</span>

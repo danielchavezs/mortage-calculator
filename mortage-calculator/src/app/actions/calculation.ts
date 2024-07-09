@@ -17,12 +17,11 @@ export async function calculateMortage (amount: number, term: number, rate: numb
 
     if (mortageType === "repayment"){
         toDisplay = moNominal;
-        totalPayment = moNominal * months;
+        totalPayment = Number((moNominal * months).toFixed(2));
     } else if (mortageType === "interest-only"){
         toDisplay = moInterestOnly;
-        totalPayment = (moInterestOnly * months) + amount;
+        totalPayment = Number((moInterestOnly * months).toFixed(2)) + Number(amount);
     } else { throw new Error ("Please select a valid mortage type.")};
-
     return {
         months,
         moNominal,
