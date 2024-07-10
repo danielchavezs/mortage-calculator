@@ -15,11 +15,15 @@ export function CalculatorIcon (){
 export function EmptyImage (){
     return(
         <Image
-        src="./illustration-empty.svg"
-        alt="empty-result"
+        src="/illustration-empty.svg"
+        // src="/mortage-calculator/public/illustration-empty.svg"
+        // src="./illustration-empty.svg"
+        // src="../assets/illustration-empty.svg"
+        alt="empty-result-alternative-text"
         width={192}
         height={192}
-        // className=""
+        layout="intrinsic"
+        className="z-50"
         />
     )
 }

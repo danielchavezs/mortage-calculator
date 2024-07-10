@@ -95,16 +95,16 @@ export default function Home() {
   };
 
   return (
-    <main className="bg-cyan-100 flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="bg-cyan-50 flex min-h-screen flex-col items-center justify-between p-24">
 
-      <div className="flex flex-wrap min-w-fit bg-orange-600 border-solid border-2 border-green-700 rounded-xl">
+      <div className="flex flex-wrap max-w-fit shadow-2xl">
 
-        <div className="bg-white w-96 h-96 rounded-2xl flex items-center shrink-0 p-6">
+        <div className="bg-white w-96 flex p-6 rounded-l-2xl">
           <div className="main container">
             <div>
               <form onSubmit={handleSubmit}>
-                <div className="flex justify-between mb-4">
-                  <h2 className="text-l font-bold"> Mortage Calculator </h2>
+                <div className="flex justify-between mb-8">
+                  <h2 className="text-l font-bold text-slate-900"> Mortgage Calculator </h2>
                   <button
                     className="text-gray-500 underline text-xs"
                     type="button"
@@ -115,65 +115,83 @@ export default function Home() {
                   </button>
                 </div>
 
-                <div className="mb-4">
+                <div className="">
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700">
-                      Mortage amount
+                    <label className="block text-xs text-gray-400 mb-2">
+                      Mortgage Amount
                     </label>
-                    <input
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-black placeholder-gray-500"
-                      id="amount"
-                      type="number"
-                      name="amount"
-                      value={parameters.amount}
-                      placeholder="Enter the mortage amount."
-                      onChange={handleChange}
-                      required
-                    />
+
+                    <div className="flex flex-row rounded border-2 border-gray-300">
+                      <div className="bg-cyan-50 text-gray-400 text-sm font-semibold w-8 text-center p-1">
+                        {"$"}
+                      </div>
+                      <input
+                        className="px-2 mt-1 w-full"
+                        id="amount"
+                        type="number"
+                        name="amount"
+                        value={parameters.amount}
+                        // placeholder="Enter the mortage amount."
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
                   </div>
 
                   <div className="mb-4 flex">
                     <div className="mr-2">
-                      <label className="block text-sm font-medium text-gray-700">
-                        Mortage term
+                      <label className="block text-xs text-gray-400 mb-2">
+                        Mortage Term
                       </label>
-                      <input
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-black placeholder-gray-500"
-                        id="term"
-                        type="number"
-                        name="term"
-                        value={parameters.term}
-                        placeholder="Years."
-                        onChange={handleChange}
-                        required
-                      />
+                      <div className="flex flex-row rounded border-2 border-gray-300">
+                        <input
+                          className="px-2 mt-1 w-full h-full"
+                          id="term"
+                          type="number"
+                          name="term"
+                          value={parameters.term}
+                          // placeholder="Years."
+                          onChange={handleChange}
+                          required
+                        />
+                        <div className="bg-cyan-50 text-gray-400 text-sm font-semibold w-14 text-center p-1">
+                          {"years"}
+                        </div>
+                      </div>
                     </div>
 
                     <div className="ml-2">
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-xs text-gray-400 mb-2">
                         Interest Rate
                       </label>
-                      <input
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-black placeholder-gray-500"
-                        id="rate"
-                        type="number"
-                        name="rate"
-                        value={parameters.rate}
-                        placeholder="Interest rate (%)."
-                        onChange={handleChange}
-                        required
-                      />
+                      
+                      <div className="flex flex-row rounded border-2 border-gray-300">
+                        <input
+                          className="px-2 mt-1 w-full h-full"
+                          id="rate"
+                          type="number"
+                          name="rate"
+                          value={parameters.rate}
+                          // placeholder="Interest rate (%)."
+                          onChange={handleChange}
+                          required
+                        />
+                        <div className="bg-cyan-50 text-gray-400 text-sm font-semibold w-8 text-center p-1">
+                          {"%"}
+                        </div>
+                      </div>
+
                     </div>
                   </div>
 
-                  <div className="mb-4">
-                    <label className="mt-4 block text-sm font-medium text-gray-700">
-                      Mortage Type
+                  <div className="my-8">
+                    <label className="block text-xs text-gray-400">
+                      Mortgage Type
                     </label>
 
  
                     <div className="flex flex-col items-start mt-2">
-                      <label className="inline-flex items-center border-black">
+                      <label className="inline-flex items-cente border-2 min-w-full p-2 rounded border-gray-300">
                         <input
                           type="radio"
                           className="form-radio"
@@ -182,9 +200,10 @@ export default function Home() {
                           checked={parameters.mortageType === "repayment"}
                           onChange={handleChange}
                         />
-                        <span className="ml-2">Repayment</span>
+                        <span className="ml-2 text-xs font-bold">Repayment</span>
                       </label>
-                      <label className="inline-flex items-center">
+
+                      <label className="mt-2 inline-flex items-cente border-2 min-w-full p-2 rounded border-gray-300">
                         <input
                           type="radio"
                           className="form-radio"
@@ -193,7 +212,7 @@ export default function Home() {
                           checked={parameters.mortageType === "interest-only"}
                           onChange={handleChange}
                         />
-                        <span className="ml-2">Interest Only</span>
+                        <span className="ml-2 text-xs font-bold">Interest Only</span>
                       </label>
                     </div>
                   </div>
@@ -202,7 +221,7 @@ export default function Home() {
                 <div className="">
                   <button
                     type="submit"
-                    className="flex text-slate-900 text-sm pt-3 pb-3 bg-lime p-1 pl-6 pr-6 rounded-3xl"
+                    className="mt-8 flex font-bold text-sm bg-lime py-2 pl-6 pr-8 rounded-3xl"
                   >
                     <CalculatorIcon/>
                     {" "}
