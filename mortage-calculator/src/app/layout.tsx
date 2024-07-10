@@ -1,4 +1,4 @@
-import { inter, plusJakartaSans } from "./ui/fonts";
+import { inter, plusJakartaSans } from "./ui/assets/fonts";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={plusJakartaSans.className}>{children}</body>
+      <body className={`${plusJakartaSans.className} bg-slate-100 text-slate-900`}>{children}</body>
     </html>
   );
 }
