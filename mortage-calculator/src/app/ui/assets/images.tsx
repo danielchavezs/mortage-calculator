@@ -16,12 +16,9 @@ export function EmptyImage (){
     return(
         <Image
         src="/illustration-empty.svg"
-        // src="/mortage-calculator/public/illustration-empty.svg"
-        // src="./illustration-empty.svg"
-        // src="../assets/illustration-empty.svg"
         alt="empty-result-alternative-text"
-        width={192}
-        height={192}
+        width={162} //192
+        height={162} //192
         layout="intrinsic"
         className="z-50"
         />

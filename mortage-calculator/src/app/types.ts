@@ -9,7 +9,7 @@ export interface Results {
     months: number;
     moNominal: number;
     moInterestOnly: number;
-    toDisplay: number;
-    totalPayment: number;
+    toDisplay: string;
+    totalPayment: string;
     solved: boolean;
   }

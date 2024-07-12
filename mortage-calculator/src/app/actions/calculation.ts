@@ -1,3 +1,5 @@
+import formatAmount from "./formatAmount";
+
 export async function calculateMortage (amount: number, term: number, rate: number, mortageType: string){
     if (!amount || !term || !rate || !mortageType){
         throw new Error ("Please complete all the fields before submitting.")
@@ -12,15 +14,15 @@ export async function calculateMortage (amount: number, term: number, rate: numb
     // const moNominal = Number(moNominalST)
     const moInterestOnly = Number((nmInterest * amount).toFixed(2));
     
-    let totalPayment = 0;
-    let toDisplay = 0;
+    let totalPayment = "";
+    let toDisplay = "";
 
     if (mortageType === "repayment"){
-        toDisplay = moNominal;
-        totalPayment = Number((moNominal * months).toFixed(2));
+        toDisplay = formatAmount(moNominal);
+        totalPayment = formatAmount(Number((moNominal * months).toFixed(2)));
     } else if (mortageType === "interest-only"){
-        toDisplay = moInterestOnly;
-        totalPayment = Number((moInterestOnly * months).toFixed(2)) + Number(amount);
+        toDisplay = formatAmount(moInterestOnly);
+        totalPayment = formatAmount(Number((moInterestOnly * months).toFixed(2)) + Number(amount));
     } else { throw new Error ("Please select a valid mortage type.")};
     
     return {

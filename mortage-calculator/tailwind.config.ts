@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         lime: 'hsl(61, 70%, 52%)',
+        ligthlime: 'hsl(61, 70%, 72%)',
         red: 'hsl(4, 69%, 50%)',
         // cyan: {
         //   50: 'rgb(207, 204, 253)'  // 'rgb(207, 204, 254)'

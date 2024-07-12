@@ -19,8 +19,8 @@ export default function Home() {
     months: 0,
     moNominal: 0,
     moInterestOnly: 0,
-    toDisplay: 0,
-    totalPayment: 0,
+    toDisplay: "",
+    totalPayment: "",
     solved: false,
   });
 
@@ -42,8 +42,8 @@ export default function Home() {
       months: 0,
       moNominal: 0,
       moInterestOnly: 0,
-      toDisplay: 0,
-      totalPayment: 0,
+      toDisplay: "",
+      totalPayment: "",
       solved: false,
     });
 
@@ -99,14 +99,14 @@ export default function Home() {
 
       <div className="flex flex-wrap max-w-fit shadow-2xl">
 
-        <div className="bg-white w-96 flex p-6 rounded-l-2xl">
+        <div className="bg-white w-96 flex p-6 rounded-tl-2xl">
           <div className="main container">
             <div>
               <form onSubmit={handleSubmit}>
                 <div className="flex justify-between mb-8">
-                  <h2 className="text-l font-bold text-slate-900"> Mortgage Calculator </h2>
+                  <h2 className="text-lg font-extrabold text-slate-900"> Mortgage Calculator </h2>
                   <button
-                    className="text-gray-500 underline text-xs"
+                    className="text-gray-400 font-semibold underline text-xs"
                     type="button"
                     onClick={resetAll}
                   >
@@ -116,17 +116,17 @@ export default function Home() {
                 </div>
 
                 <div className="">
-                  <div className="mb-4">
-                    <label className="block text-xs text-gray-400 mb-2">
+                  <div className="mb-6">
+                    <label className="block text-xs text-gray-400 mb-2 font-semibold">
                       Mortgage Amount
                     </label>
 
-                    <div className="flex flex-row rounded border-2 border-gray-300">
+                    <div className="flex flex-row rounded border-2 border-gray-200 hover:cursor-pointer hover:border-lime">
                       <div className="bg-cyan-50 text-gray-400 text-sm font-semibold w-8 text-center p-1">
                         {"$"}
                       </div>
                       <input
-                        className="px-2 mt-1 w-full"
+                        className="px-2 pb-1 mt-1 w-full"
                         id="amount"
                         type="number"
                         name="amount"
@@ -138,14 +138,14 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="mb-4 flex">
+                  <div className="mb-4 mt-5 flex">
                     <div className="mr-2">
-                      <label className="block text-xs text-gray-400 mb-2">
+                      <label className="block text-xs text-gray-400 mb-2 font-semibold">
                         Mortage Term
                       </label>
-                      <div className="flex flex-row rounded border-2 border-gray-300">
+                      <div className="flex flex-row rounded border-2 border-gray-200">
                         <input
-                          className="px-2 mt-1 w-full h-full"
+                          className="px-2 pb-1 mt-1 w-full h-full"
                           id="term"
                           type="number"
                           name="term"
@@ -161,13 +161,13 @@ export default function Home() {
                     </div>
 
                     <div className="ml-2">
-                      <label className="block text-xs text-gray-400 mb-2">
+                      <label className="block text-xs text-gray-400 mb-2 font-semibold">
                         Interest Rate
                       </label>
                       
-                      <div className="flex flex-row rounded border-2 border-gray-300">
+                      <div className="flex flex-row rounded border-2 border-gray-200">
                         <input
-                          className="px-2 mt-1 w-full h-full"
+                          className="px-2 pb-1 mt-1 w-full h-full"
                           id="rate"
                           type="number"
                           name="rate"
@@ -185,13 +185,13 @@ export default function Home() {
                   </div>
 
                   <div className="my-8">
-                    <label className="block text-xs text-gray-400">
+                    <label className="block text-xs text-gray-400 font-semibold">
                       Mortgage Type
                     </label>
 
  
                     <div className="flex flex-col items-start mt-2">
-                      <label className="inline-flex items-cente border-2 min-w-full p-2 rounded border-gray-300">
+                      <label className="inline-flex items-cente border-2 min-w-full p-2 pl-3 rounded border-gray-200 hover:border-lime hover:cursor-pointer">
                         <input
                           type="radio"
                           className="form-radio"
@@ -200,10 +200,10 @@ export default function Home() {
                           checked={parameters.mortageType === "repayment"}
                           onChange={handleChange}
                         />
-                        <span className="ml-2 text-xs font-bold">Repayment</span>
+                        <span className="ml-2 text-sm font-bold">Repayment</span>
                       </label>
 
-                      <label className="mt-2 inline-flex items-cente border-2 min-w-full p-2 rounded border-gray-300">
+                      <label className="mt-2 inline-flex items-cente border-2 min-w-full p-2 pl-3 rounded border-gray-200 hover:border-lime hover:cursor-pointer">
                         <input
                           type="radio"
                           className="form-radio"
@@ -212,7 +212,7 @@ export default function Home() {
                           checked={parameters.mortageType === "interest-only"}
                           onChange={handleChange}
                         />
-                        <span className="ml-2 text-xs font-bold">Interest Only</span>
+                        <span className="ml-2 text-sm font-bold">Interest Only</span>
                       </label>
                     </div>
                   </div>
@@ -221,7 +221,7 @@ export default function Home() {
                 <div className="">
                   <button
                     type="submit"
-                    className="mt-8 flex font-bold text-sm bg-lime py-2 pl-6 pr-8 rounded-3xl"
+                    className="mt-8 flex font-bold text-sm bg-lime py-2 pl-6 pr-8 rounded-3xl hover:bg-ligthlime"
                   >
                     <CalculatorIcon/>
                     {" "}
@@ -244,4 +244,4 @@ export default function Home() {
       </div>
     </main>
   );
-}
+};

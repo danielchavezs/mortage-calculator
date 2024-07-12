@@ -35,3 +35,13 @@ body {
     text-wrap: balance;
   }
 }
+
+/* globals.css */
+.rounded-bl-5xl {
+  border-bottom-left-radius: 44px;
+}
+
+.rounded-bl-5xl {
+  border-bottom-left-radius: 62px;
+}
+
