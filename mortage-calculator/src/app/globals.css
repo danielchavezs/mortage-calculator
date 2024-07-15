@@ -42,6 +42,6 @@ body {
 }
 
 .rounded-bl-5xl {
-  border-bottom-left-radius: 62px;
+  border-bottom-left-radius: 62px !important;
 }
 

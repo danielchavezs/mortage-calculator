@@ -8,6 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        // 'xs': '375px', // Añadir un nuevo punto de quiebre para móviles pequeños
+        'sm': '320px',
+        'md': '480px',
+        'lg': '1150px',
+        // 'xl': '1280px',
+        // '2xl': '1536px',
+      },
       colors: {
         lime: 'hsl(61, 70%, 52%)',
         ligthlime: 'hsl(61, 70%, 72%)',

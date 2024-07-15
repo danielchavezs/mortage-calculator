@@ -2,7 +2,7 @@ import { Results } from "@/app/types";
 
 export default function SuccessResult ({ results }: { results: Results}){
     return (
-        <div className="flex w-96 h-full bg-slate-900 p-8 rounded-bl-5xl rounded-r-2xl">
+        <div className="flex flex-col w-full sm:max-w- lg:w-96 min-h-full bg-slate-900 p-8 rounded-bl-5xl lg:rounded-r-2xl md:rounded-b-2xl md:rounded-t-none sm:rounded-none">
           <div>
             <h2 className="text-white text-xl font-bold mb-4"> Your results </h2>
             <p className="text-gray-400 text-xs mb-8">
@@ -16,14 +16,14 @@ export default function SuccessResult ({ results }: { results: Results}){
                 <h3 className="text-sm text-gray-500 font-semibold">
                   Your monthly repayments
                 </h3>
-                <p className="text-lime text-5xl font-bold mb-6 mt-3">
+                <p className="text-lime text-5xl sm:text-4xl font-bold mb-6 sm:mb-3 mt-3">
                 {"$ "}{results.toDisplay}
                 </p>
               </div>
               
               <hr className="border-gray-600"/>
               
-              <div className="mt-6">
+              <div className="mt-6 sm:mt-3">
                 <h3 className="text-sm text-gray-500 font-semibold">
                   Total you´ll repay over them
                 </h3>
@@ -35,4 +35,4 @@ export default function SuccessResult ({ results }: { results: Results}){
           </div>
         </div>
     )
-}
+};

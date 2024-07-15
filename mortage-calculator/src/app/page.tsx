@@ -95,13 +95,13 @@ export default function Home() {
   };
 
   return (
-    <main className="bg-cyan-50 flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="bg-cyan-50 flex min-h-screen flex-col items-center justify-between lg:p-32 md:p-12">
 
-      <div className="flex flex-wrap max-w-fit shadow-2xl">
+      <div className="flex lg:flex-row md:flex-col sm:flex-col max-w-fit shadow-2xl lg:rounded-2xl">
 
-        <div className="bg-white w-96 flex p-6 rounded-tl-2xl">
-          <div className="main container">
-            <div>
+        <div className="bg-white w-full lg:w-96 md:w-full sm:w-screen flex p-6 rounded-l-2xl md:rounded-t-2xl ">
+          <div className="w-full">
+
               <form onSubmit={handleSubmit}>
                 <div className="flex justify-between mb-8">
                   <h2 className="text-lg font-extrabold text-slate-900"> Mortgage Calculator </h2>
@@ -115,7 +115,7 @@ export default function Home() {
                   </button>
                 </div>
 
-                <div className="">
+                <div>
                   <div className="mb-6">
                     <label className="block text-xs text-gray-400 mb-2 font-semibold">
                       Mortgage Amount
@@ -138,8 +138,9 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="mb-4 mt-5 flex">
-                    <div className="mr-2">
+                  <div className="mb-4 mt-5 flex lg:flex-row md:flex-row sm:flex-col lg:space-x-4 md:space-x-12">
+                  
+                    <div className="sm:mb-4">
                       <label className="block text-xs text-gray-400 mb-2 font-semibold">
                         Mortage Term
                       </label>
@@ -160,7 +161,7 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="ml-2">
+                    <div className="">
                       <label className="block text-xs text-gray-400 mb-2 font-semibold">
                         Interest Rate
                       </label>
@@ -221,7 +222,7 @@ export default function Home() {
                 <div className="">
                   <button
                     type="submit"
-                    className="mt-8 flex font-bold text-sm bg-lime py-2 pl-6 pr-8 rounded-3xl hover:bg-ligthlime"
+                    className="lg:w-72 md:w-72 mt-8 flex font-bold text-sm bg-lime py-2 pl-12 pr-6 sm:place-content-center sm:px-0 rounded-3xl hover:bg-ligthlime sm:w-full"
                   >
                     <CalculatorIcon/>
                     {" "}
@@ -229,7 +230,7 @@ export default function Home() {
                   </button>
                 </div>
               </form>
-            </div>
+            
           </div>
         </div>
 
