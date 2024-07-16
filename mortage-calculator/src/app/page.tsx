@@ -6,12 +6,13 @@ import { CalculatorIcon } from "./ui/assets/images";
 import { Parameters, Results } from "./types";
 import SuccessResult from "./ui/results/success";
 import EmptyResult from "./ui/results/empty";
+import { amountClass, amountError, amountLogo, amountLogoError } from "./ui/assets/classes";
 
 export default function Home() {
   const [parameters, setParameters] = useState<Parameters>({
-    amount: 0,
-    term: 0,
-    rate: 0,
+    amount: "",
+    term: "",
+    rate: "",
     mortageType: "",
   });
 
@@ -25,16 +26,27 @@ export default function Home() {
   });
 
   const [error, setError] = useState({
-    amount: "",
-    term: "",
-    rate: "",
-    mortageType: "",
+    amount: false,
+    term: false,
+    rate: false,
+    mortageType: false,
+    count: 0,
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const property = event.target.name;
     const value = event.target.value;
     setParameters({ ...parameters, [property]: value });
+  };
+
+  const resetErrors = () => {
+    setError({
+      amount: false,
+      term: false,
+      rate: false,
+      mortageType: false,
+      count: 0,
+    });
   };
 
   const resetAll = () => {
@@ -48,43 +60,53 @@ export default function Home() {
     });
 
     setParameters({
-      amount: 0,
-      term: 0,
-      rate: 0,
+      amount: "",
+      term: "",
+      rate: "",
       mortageType: "",
     });
+
+    resetErrors();
   };
 
-  const validateForm = () => {
-    // const requiredFields = Object.keys(parameters) as (keyof Parameters)[];
-    const requiredFields: (keyof Parameters)[] = [
-      "amount",
-      "term",
-      "rate",
-      "mortageType",
-    ];
+
+  const validateForm = async () => {
+    resetErrors();
+    const requiredFields: (keyof Parameters)[] = ["amount", "term", "rate", "mortageType"];
+    let fieldsCompleted = true;
+
+    const newErrors = { amount: false, term: false, rate: false, mortageType: false, count: 0 };
     for (const key of requiredFields) {
-      if (parameters[key] === "" || parameters[key] === 0) {
-        setError((prevError) => ({
-          ...prevError,
-          [key]: `You must enter a ${key}.`,
-        }));
-        return false;
-      }
-    }
-    return true;
+      if (parameters[key] === "") {
+        newErrors[key] = true;
+        fieldsCompleted = false;
+        newErrors.count++
+      };
+    };
+    
+    // return new Promise((resolve) => {
+    //   setError((prevError) => ({ ...prevError, ...newErrors }));
+    //   resolve(fieldsCompleted);
+    // });
+    // setError((prevError) => ({ ...prevError, ...newErrors }));
+    setError(newErrors)
+    return fieldsCompleted;
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!validateForm()) {
+    const isValid = await validateForm();
+    console.log(isValid)
+
+    if (!isValid) {
+      console.log("ERRORS REGISTERED:", error);
       alert("Please complete all fields before submiting.");
       return;
-    }
+    };
     try {
-      const amount = parameters.amount;
-      const term = parameters.term;
-      const rate = parameters.rate;
+      const amount = Number(parameters.amount);
+      const term = Number(parameters.term);
+      const rate = Number(parameters.rate);
       const mortageType = parameters.mortageType;
 
       const res = await calculateMortage(amount, term, rate, mortageType);
@@ -95,11 +117,11 @@ export default function Home() {
   };
 
   return (
-    <main className="bg-cyan-50 flex min-h-screen flex-col items-center justify-between lg:p-32 md:p-12">
+    <main className="bg-sky-100 flex min-h-screen flex-col items-center justify-between lg:p-32 md:p-12">
 
-      <div className="flex lg:flex-row md:flex-col sm:flex-col max-w-fit shadow-2xl lg:rounded-2xl">
+      <div className="flex lg:flex-row md:flex-col md:rounded-2xl sm:flex-col max-w-fit shadow-2xl lg:rounded-2xl">
 
-        <div className="bg-white w-full lg:w-96 md:w-full sm:w-screen flex p-6 rounded-l-2xl md:rounded-t-2xl ">
+        <div className="bg-white w-full lg:w-96 md:w-full sm:w-screen flex p-6 rounded-l-2xl md:rounded-t-2xl">
           <div className="w-full">
 
               <form onSubmit={handleSubmit}>
@@ -121,8 +143,8 @@ export default function Home() {
                       Mortgage Amount
                     </label>
 
-                    <div className="flex flex-row rounded border-2 border-gray-200 hover:cursor-pointer hover:border-lime">
-                      <div className="bg-cyan-50 text-gray-400 text-sm font-semibold w-8 text-center p-1">
+                    <div className={error.amount? amountError: amountClass}>
+                      <div className= {error.amount? amountLogoError: amountLogo}>
                         {"$"}
                       </div>
                       <input
@@ -133,7 +155,7 @@ export default function Home() {
                         value={parameters.amount}
                         // placeholder="Enter the mortage amount."
                         onChange={handleChange}
-                        required
+                        // required
                       />
                     </div>
                   </div>
@@ -153,7 +175,7 @@ export default function Home() {
                           value={parameters.term}
                           // placeholder="Years."
                           onChange={handleChange}
-                          required
+                          // required
                         />
                         <div className="bg-cyan-50 text-gray-400 text-sm font-semibold w-14 text-center p-1">
                           {"years"}
@@ -175,7 +197,7 @@ export default function Home() {
                           value={parameters.rate}
                           // placeholder="Interest rate (%)."
                           onChange={handleChange}
-                          required
+                          // required
                         />
                         <div className="bg-cyan-50 text-gray-400 text-sm font-semibold w-8 text-center p-1">
                           {"%"}
@@ -222,7 +244,7 @@ export default function Home() {
                 <div className="">
                   <button
                     type="submit"
-                    className="lg:w-72 md:w-72 mt-8 flex font-bold text-sm bg-lime py-2 pl-12 pr-6 sm:place-content-center sm:px-0 rounded-3xl hover:bg-ligthlime sm:w-full"
+                    className="lg:w-60 md:w-64 mt-8 flex font-bold text-sm bg-lime py-2 pl-12 pr-6 sm:place-content-center sm:px-0 rounded-3xl hover:bg-ligthlime sm:w-full"
                   >
                     <CalculatorIcon/>
                     {" "}

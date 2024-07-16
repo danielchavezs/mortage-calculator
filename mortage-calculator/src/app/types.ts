@@ -1,7 +1,7 @@
 export interface Parameters {
-    amount: number;
-    term: number;
-    rate: number;
+    amount: string;
+    term: string;
+    rate: string;
     mortageType: string;
   }
   

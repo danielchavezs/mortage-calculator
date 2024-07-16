@@ -45,3 +45,16 @@ body {
   border-bottom-left-radius: 62px !important;
 }
 
+/* Estilo para navegadores Webkit (Chrome, Safari, Edge) */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Estilo para Firefox */
+/* input[type=number] { */
+    /* -moz-appearance: textfield; */
+/* } */
+
+
