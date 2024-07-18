@@ -16,14 +16,14 @@ export default function SuccessResult ({ results }: { results: Results}){
                 <h3 className="text-sm text-gray-500 font-semibold">
                   Your monthly repayments
                 </h3>
-                <p className="text-lime text-5xl sm:text-4xl font-bold mb-6 sm:mb-3 mt-3">
+                <p className="text-lime text-5xl font-bold lg:mb-6 md:mb-6 sm:text-4xl sm:mb-3 mt-3">
                 {"$ "}{results.toDisplay}
                 </p>
               </div>
               
               <hr className="border-gray-600"/>
               
-              <div className="mt-6 sm:mt-3">
+              <div className="lg:mt-6 md:mt-6 sm:mt-3">
                 <h3 className="text-sm text-gray-500 font-semibold">
                   Total you´ll repay over them
                 </h3>

@@ -6,7 +6,7 @@ import { CalculatorIcon } from "./ui/assets/images";
 import { Parameters, Results } from "./types";
 import SuccessResult from "./ui/results/success";
 import EmptyResult from "./ui/results/empty";
-import { amountClass, amountError, amountLogo, amountLogoError } from "./ui/assets/classes";
+import { inputsClass, inputsErrorClass, inputsLogo, inputsLogoError } from "./ui/assets/classes";
 
 export default function Home() {
   const [parameters, setParameters] = useState<Parameters>({
@@ -119,7 +119,7 @@ export default function Home() {
   return (
     <main className="bg-sky-100 flex min-h-screen flex-col items-center justify-between lg:p-32 md:p-12">
 
-      <div className="flex lg:flex-row md:flex-col md:rounded-2xl sm:flex-col max-w-fit shadow-2xl lg:rounded-2xl">
+      <div className="bg-white flex lg:flex-row md:flex-col md:rounded-2xl sm:flex-col max-w-fit shadow-2xl lg:rounded-2xl">
 
         <div className="bg-white w-full lg:w-96 md:w-full sm:w-screen flex p-6 rounded-l-2xl md:rounded-t-2xl">
           <div className="w-full">
@@ -143,8 +143,8 @@ export default function Home() {
                       Mortgage Amount
                     </label>
 
-                    <div className={error.amount? amountError: amountClass}>
-                      <div className= {error.amount? amountLogoError: amountLogo}>
+                    <div className={error.amount? inputsErrorClass: inputsClass}>
+                      <div className= {error.amount? inputsLogoError: inputsLogo}>
                         {"$"}
                       </div>
                       <input
@@ -158,6 +158,7 @@ export default function Home() {
                         // required
                       />
                     </div>
+                    <span className={error.amount? "text-xs text-red": "hidden"}>This field is required</span>
                   </div>
 
                   <div className="mb-4 mt-5 flex lg:flex-row md:flex-row sm:flex-col lg:space-x-4 md:space-x-12">
@@ -166,7 +167,7 @@ export default function Home() {
                       <label className="block text-xs text-gray-400 mb-2 font-semibold">
                         Mortage Term
                       </label>
-                      <div className="flex flex-row rounded border-2 border-gray-200">
+                      <div className={error.term? inputsErrorClass: inputsClass}>
                         <input
                           className="px-2 pb-1 mt-1 w-full h-full"
                           id="term"
@@ -177,10 +178,11 @@ export default function Home() {
                           onChange={handleChange}
                           // required
                         />
-                        <div className="bg-cyan-50 text-gray-400 text-sm font-semibold w-14 text-center p-1">
+                        <div className= {error.term? inputsLogoError: inputsLogo}>
                           {"years"}
                         </div>
                       </div>
+                      <span className={error.term? "text-xs text-red": "hidden"}>This field is required</span>
                     </div>
 
                     <div className="">
@@ -188,7 +190,7 @@ export default function Home() {
                         Interest Rate
                       </label>
                       
-                      <div className="flex flex-row rounded border-2 border-gray-200">
+                      <div className= {error.rate? inputsErrorClass: inputsClass}>
                         <input
                           className="px-2 pb-1 mt-1 w-full h-full"
                           id="rate"
@@ -199,11 +201,11 @@ export default function Home() {
                           onChange={handleChange}
                           // required
                         />
-                        <div className="bg-cyan-50 text-gray-400 text-sm font-semibold w-8 text-center p-1">
+                        <div className={error.rate? inputsLogoError: inputsLogo}>
                           {"%"}
                         </div>
                       </div>
-
+                      <span className={error.rate? "text-xs text-red": "hidden"}>This field is required</span>
                     </div>
                   </div>
 
@@ -214,15 +216,16 @@ export default function Home() {
 
  
                     <div className="flex flex-col items-start mt-2">
-                      <label className="inline-flex items-cente border-2 min-w-full p-2 pl-3 rounded border-gray-200 hover:border-lime hover:cursor-pointer">
+                      <label className="inline-flex items-cente border-2 min-w-full p-2 pl-3 rounded border-gray-200 hover:border-lime hover:cursor-pointer ">
                         <input
                           type="radio"
-                          className="form-radio"
+                          className="form-radio checked:text-lime checked:bg-red"
                           name="mortageType"
                           value="repayment"
                           checked={parameters.mortageType === "repayment"}
                           onChange={handleChange}
                         />
+                        {/* <span className="w-4 h-4 mr-2 border-2 border-gray-300 rounded-full peer-checked:border-lime peer-checked:bg-lime-500"></span> */}
                         <span className="ml-2 text-sm font-bold">Repayment</span>
                       </label>
 
@@ -238,7 +241,9 @@ export default function Home() {
                         <span className="ml-2 text-sm font-bold">Interest Only</span>
                       </label>
                     </div>
+                    <span className={error.mortageType? "text-xs text-red": "hidden"}>This field is required</span>
                   </div>
+
                 </div>
 
                 <div className="">

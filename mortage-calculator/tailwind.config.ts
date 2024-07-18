@@ -46,6 +46,13 @@ const config: Config = {
       // },
     },
   },
+  variants: {
+    extend: {
+      backgroundColor: ['checked'],
+      borderColor: ['checked'],
+      textColor: ['checked'],
+    },
+  },
   plugins: [],
 };
 export default config;
