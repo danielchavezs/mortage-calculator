@@ -6,7 +6,7 @@ import { CalculatorIcon } from "./ui/assets/images";
 import { Parameters, Results } from "./types";
 import SuccessResult from "./ui/results/success";
 import EmptyResult from "./ui/results/empty";
-import { inputsClass, inputsErrorClass, inputsLogo, inputsLogoError } from "./ui/assets/classes";
+import { inputsClass, inputsErrorClass, inputsLogo, inputsLogoError, radioLabels, radioSelectedLabel } from "./ui/assets/classes";
 
 export default function Home() {
   const [parameters, setParameters] = useState<Parameters>({
@@ -216,20 +216,21 @@ export default function Home() {
 
  
                     <div className="flex flex-col items-start mt-2">
-                      <label className="inline-flex items-cente border-2 min-w-full p-2 pl-3 rounded border-gray-200 hover:border-lime hover:cursor-pointer ">
+                      <label className={parameters.mortageType === "repayment" ? radioSelectedLabel: radioLabels}>
                         <input
                           type="radio"
-                          className="form-radio checked:text-lime checked:bg-red"
+                          className="form-radio"
                           name="mortageType"
                           value="repayment"
                           checked={parameters.mortageType === "repayment"}
                           onChange={handleChange}
+                          id="repayment"
                         />
                         {/* <span className="w-4 h-4 mr-2 border-2 border-gray-300 rounded-full peer-checked:border-lime peer-checked:bg-lime-500"></span> */}
                         <span className="ml-2 text-sm font-bold">Repayment</span>
-                      </label>
+                      </label> 
 
-                      <label className="mt-2 inline-flex items-cente border-2 min-w-full p-2 pl-3 rounded border-gray-200 hover:border-lime hover:cursor-pointer">
+                      <label className={parameters.mortageType === "interest-only" ? radioSelectedLabel: radioLabels}>
                         <input
                           type="radio"
                           className="form-radio"
@@ -237,6 +238,7 @@ export default function Home() {
                           value="interest-only"
                           checked={parameters.mortageType === "interest-only"}
                           onChange={handleChange}
+                          id="interest-only"
                         />
                         <span className="ml-2 text-sm font-bold">Interest Only</span>
                       </label>

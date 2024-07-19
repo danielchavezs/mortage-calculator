@@ -12,7 +12,7 @@ const config: Config = {
         // 'xs': '375px', // Añadir un nuevo punto de quiebre para móviles pequeños
         'sm': '320px',
         'md': '480px',
-        'lg': '1150px',
+        'lg': '900px',
         // 'xl': '1280px',
         // '2xl': '1536px',
       },

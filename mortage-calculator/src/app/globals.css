@@ -53,13 +53,66 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 /* Estilo para Firefox */
-/* input[type=number] { */
-    /* -moz-appearance: textfield; */
-/* } */
+input[type=number] {
+    -moz-appearance: textfield;
+}
 
 /* styles/globals.css */
-input[type="radio"]:checked {
+/* input[type="radio"]:checked {
   @apply text-lime;
+} */
+
+
+/* Cambia el color del borde y el fondo del radio button cuando está seleccionado */
+input[type="radio"]:checked {
+  border-color: grey !important; /* Cambia el color del borde */
+  background-color: grey !important; /* Cambia el color de fondo */
+  accent-color: hsl(61, 70%, 52%);
+  /* outline: 4px solid white;
+  outline-offset: -2px; */
 }
+
+input[type="radio"]:checked::before {
+  content: '';
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  background-color: white; /* Color del anillo interno */
+  border-radius: 50%;
+  margin: auto;
+}
+
+/* Quitar el borde de foco de todos los inputs cuando son seleccionados */
+input:focus {
+  outline: none;
+}
+
+/* También puedes hacerlo específico para tus inputs */
+/* input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+  outline: none;
+} */
+
+/* Quitar el borde de foco por defecto */
+input:focus {
+  outline: none;
+}
+
+/* Agregar un borde de foco personalizado */
+/* input:focus { */
+  /* border: 2px solid #yourCustomColor; */
+  /* O cualquier otro estilo que prefieras */
+/* } */
+
+
+
+/* Estilo personalizado para el fondo del label cuando el radio button está seleccionado */
+/* input[type="radio"]:checked + label { */
+  /* background-color: red !important; Cambia el color de fondo del label */
+/* } */
+
+
 
 
