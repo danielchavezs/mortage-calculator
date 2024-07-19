@@ -72,15 +72,15 @@ input[type="radio"]:checked {
   outline-offset: -2px; */
 }
 
-input[type="radio"]:checked::before {
+/* input[type="radio"]:checked::before {
   content: '';
   display: inline-block;
-  width: 0.75em;
-  height: 0.75em;
-  background-color: white; /* Color del anillo interno */
-  border-radius: 50%;
+  width: 0.75em; */
+  /* height: 0.75em; */
+  /* background-color: white; Color del anillo interno */
+  /* border-radius: 50%;
   margin: auto;
-}
+} */
 
 /* Quitar el borde de foco de todos los inputs cuando son seleccionados */
 input:focus {
@@ -94,6 +94,9 @@ input[type="radio"]:focus,
 input[type="checkbox"]:focus {
   outline: none;
 } */
+
+
+
 
 /* Quitar el borde de foco por defecto */
 input:focus {

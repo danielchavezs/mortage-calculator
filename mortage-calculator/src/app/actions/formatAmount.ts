@@ -1,5 +1,11 @@
-export default function formatAmount (amount: number){
-    const amountString = `${amount}`
+export default function formatAmount (amount: number | string){
+    
+    let amountString = "";
+    if(typeof amount === "number"){
+        amountString = `${amount}`
+    } else {
+        amountString = amount;
+    }
     const newArr: string[] = []
 
     if (amountString.includes(".")){
@@ -31,4 +37,11 @@ export default function formatAmount (amount: number){
         console.log(formatedNumber)
         return formatedNumber;
     };
+};
+
+export function deformatAmount (amount: string){
+    let value = amount;
+    value = value.replace(/,/g, '');
+    console.log(value)
+    return Number(value);
 };

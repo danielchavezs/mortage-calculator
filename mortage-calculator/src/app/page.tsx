@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { calculateMortage } from "./actions/calculation";
 import { CalculatorIcon } from "./ui/assets/images";
 import { Parameters, Results } from "./types";
 import SuccessResult from "./ui/results/success";
 import EmptyResult from "./ui/results/empty";
 import { inputsClass, inputsErrorClass, inputsLogo, inputsLogoError, radioLabels, radioSelectedLabel } from "./ui/assets/classes";
+import formatAmount, { deformatAmount } from "./actions/formatAmount";
 
 export default function Home() {
   const [parameters, setParameters] = useState<Parameters>({
@@ -35,10 +36,19 @@ export default function Home() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const property = event.target.name;
-    const value = event.target.value;
-    setParameters({ ...parameters, [property]: value });
+    let value = event.target.value;
+
+    value = value.replace(/,/g, ''); // Remueve las comas para mantener la consistencia.
+    setParameters({ ...parameters, [property]: (value) });
   };
 
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const property = event.target.name;
+    const value = event.target.value.replace(/,/g, ''); // Remueve las comas para mantener la consistencia
+    const formattedValue = formatAmount(value);
+    setParameters({ ...parameters, [property]: formattedValue });
+  };
+  
   const resetErrors = () => {
     setError({
       amount: false,
@@ -48,7 +58,7 @@ export default function Home() {
       count: 0,
     });
   };
-
+  
   const resetAll = () => {
     setResults({
       months: 0,
@@ -65,16 +75,15 @@ export default function Home() {
       rate: "",
       mortageType: "",
     });
-
+    
     resetErrors();
   };
-
-
+  
   const validateForm = async () => {
     resetErrors();
     const requiredFields: (keyof Parameters)[] = ["amount", "term", "rate", "mortageType"];
     let fieldsCompleted = true;
-
+    
     const newErrors = { amount: false, term: false, rate: false, mortageType: false, count: 0 };
     for (const key of requiredFields) {
       if (parameters[key] === "") {
@@ -83,28 +92,22 @@ export default function Home() {
         newErrors.count++
       };
     };
-    
-    // return new Promise((resolve) => {
-    //   setError((prevError) => ({ ...prevError, ...newErrors }));
-    //   resolve(fieldsCompleted);
-    // });
-    // setError((prevError) => ({ ...prevError, ...newErrors }));
     setError(newErrors)
     return fieldsCompleted;
   };
-
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const isValid = await validateForm();
     console.log(isValid)
-
+    
     if (!isValid) {
       console.log("ERRORS REGISTERED:", error);
       alert("Please complete all fields before submiting.");
       return;
     };
     try {
-      const amount = Number(parameters.amount);
+      const amount = deformatAmount(parameters.amount);
       const term = Number(parameters.term);
       const rate = Number(parameters.rate);
       const mortageType = parameters.mortageType;
@@ -115,6 +118,14 @@ export default function Home() {
       window.alert(error);
     }
   };
+  
+  // useEffect(() => {
+  //   setParameters((prevParams) => ({
+  //     ...prevParams,
+  //     amount: formatAmount(prevParams.amount),
+  //   }));
+  // }, [parameters.amount]);
+
 
   return (
     <main className="bg-sky-100 flex min-h-screen flex-col items-center justify-between lg:p-32 md:p-12">
@@ -148,14 +159,13 @@ export default function Home() {
                         {"$"}
                       </div>
                       <input
-                        className="px-2 pb-1 mt-1 w-full"
+                        className="px-2 pb-1 mt-1 w-full font-bold"
                         id="amount"
-                        type="number"
+                        type="text"
                         name="amount"
                         value={parameters.amount}
-                        // placeholder="Enter the mortage amount."
                         onChange={handleChange}
-                        // required
+                        onBlur={handleBlur}
                       />
                     </div>
                     <span className={error.amount? "text-xs text-red": "hidden"}>This field is required</span>
@@ -169,7 +179,7 @@ export default function Home() {
                       </label>
                       <div className={error.term? inputsErrorClass: inputsClass}>
                         <input
-                          className="px-2 pb-1 mt-1 w-full h-full"
+                          className="px-2 pb-1 mt-1 w-full h-full font-bold"
                           id="term"
                           type="number"
                           name="term"
@@ -192,7 +202,7 @@ export default function Home() {
                       
                       <div className= {error.rate? inputsErrorClass: inputsClass}>
                         <input
-                          className="px-2 pb-1 mt-1 w-full h-full"
+                          className="px-2 pb-1 mt-1 w-full h-full font-bold"
                           id="rate"
                           type="number"
                           name="rate"
