@@ -118,13 +118,6 @@ export default function Home() {
       window.alert(error);
     }
   };
-  
-  // useEffect(() => {
-  //   setParameters((prevParams) => ({
-  //     ...prevParams,
-  //     amount: formatAmount(prevParams.amount),
-  //   }));
-  // }, [parameters.amount]);
 
 
   return (
@@ -184,9 +177,7 @@ export default function Home() {
                           type="number"
                           name="term"
                           value={parameters.term}
-                          // placeholder="Years."
                           onChange={handleChange}
-                          // required
                         />
                         <div className= {error.term? inputsLogoError: inputsLogo}>
                           {"years"}
@@ -207,9 +198,7 @@ export default function Home() {
                           type="number"
                           name="rate"
                           value={parameters.rate}
-                          // placeholder="Interest rate (%)."
                           onChange={handleChange}
-                          // required
                         />
                         <div className={error.rate? inputsLogoError: inputsLogo}>
                           {"%"}
@@ -236,7 +225,6 @@ export default function Home() {
                           onChange={handleChange}
                           id="repayment"
                         />
-                        {/* <span className="w-4 h-4 mr-2 border-2 border-gray-300 rounded-full peer-checked:border-lime peer-checked:bg-lime-500"></span> */}
                         <span className="ml-2 text-sm font-bold">Repayment</span>
                       </label> 
 
